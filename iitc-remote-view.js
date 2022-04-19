@@ -36,9 +36,6 @@ function wrapper(plugin_info) {
              }
 
              var portal = window.portals[data.selectedPortalGuid];
-             console.log(portal);
-             console.log(data.selectedPortalGuid)
-             console.log(data.unselectedPortalGuid)
 
              if (!portal) {
                  return;
@@ -54,12 +51,7 @@ function wrapper(plugin_info) {
                  return;
              }
 
-             console.log("link details tab:");
-             console.log(linkDetails);
-
-
              var guid = data.selectedPortalGuid;
-             console.log("finished getting portal details")
 
              var remoteViewHTML = $('<a>').attr({
                  href: window.makeRemoteView([lat,lng], guid),
@@ -76,6 +68,9 @@ function wrapper(plugin_info) {
 
              // #resodetails
              linkDetails.append($('<aside>').append($('<div>').append(remoteViewHTML)));
+
+             var lastTouched = '<div><span>Last touched: ' + new Date(portal.options.timestamp) + '</span></div>'
+             linkDetails.append(lastTouched);
          }, 0);
      }
 
@@ -123,3 +118,5 @@ var info = {};
 if (typeof GM_info !== 'undefined' && GM_info && GM_info.script) info.script = { version: GM_info.script.version, name: GM_info.script.name, description: GM_info.script.description };
 script.appendChild(document.createTextNode('('+ wrapper +')('+JSON.stringify(info)+');'));
 (document.body || document.head || document.documentElement).appendChild(script);
+
+
