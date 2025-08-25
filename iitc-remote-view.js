@@ -81,24 +81,24 @@ function wrapper(plugin_info) {
             return Math.floor(l*1e6)/1e6;
         }
 
-        var url = 'https://link.ingress.com/'
-        var args = [];
-        //in-game apn
-        args.push('link=https%3a%2f%2fintel.ingress.com%2fportal%2f' + guid);
-        args.push('apn=com.nianticproject.ingress');
-        args.push('isi=576505181');
-        args.push('ibi=com.google.ingress');
-        args.push('ifl=https://apps.apple.com/app/ingress/id576505181');
+        var url = 'https://link.ingress.com/portal/'+ guid
+        //var args = [];
+        ////in-game apn
+        //args.push('link=https%3a%2f%2fintel.ingress.com%2fportal%2f' + guid);
+        //args.push('apn=com.nianticproject.ingress');
+        //args.push('isi=576505181');
+        //args.push('ibi=com.google.ingress');
+        //args.push('ifl=https://apps.apple.com/app/ingress/id576505181');
 
-        var latlong = '';
-        if (latlng) {
-            if ('lat' in latlng) { latlng = [latlng.lat, latlng.lng]; }
-            latlong=latlng.join(',');
-        }
+        //var latlong = '';
+        //if (latlng) {
+        //    if ('lat' in latlng) { latlng = [latlng.lat, latlng.lng]; }
+        //    latlong=latlng.join(',');
+        //}
 
-        args.push('ofl=https://intel.ingress.com/intel?pll=' + latlong);
+        //args.push('ofl=https://intel.ingress.com/intel?pll=' + latlong);
 
-        return url + '?' + args.join('&');
+        return url;
     };
 
     // Add an info property for IITC's plugin system
