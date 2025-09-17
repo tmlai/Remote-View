@@ -74,9 +74,12 @@ function wrapper(plugin_info) {
              
 
              let distance = haversine(targetLat, targetLong, lat, lng);
+			 let maxLinkDistance= 6881.279999
+			 let diffMaxLinkDistance = 6881.279999 - distance
 		     //distance = distance.toFixed(1);
 
              var distanceToTarget = '<div><span>Distance to target: ' +distance + '</span></div>'
+			 var diffToMaxDistance = '<div><span>Diff to max link distance: ' +diffMaxLinkDistance + '</span></div>'
              
              linkDetails.append(lastTouched);
              linkDetails.append(distanceToTarget);
@@ -85,7 +88,7 @@ function wrapper(plugin_info) {
 
    //Credit: https://github.com/tehstone/IngressDronePath/blob/master/dronePathTravelPlanner.user.js#L1108
    function haversine(lat1, lon1, lat2, lon2) {
-		const R = 6371e3; // metres
+		const R = 6371008771.4; // milimetres
 		const φ1 = lat1 * Math.PI/180; // φ, λ in radians
 		const φ2 = lat2 * Math.PI/180;
 		const Δφ = (lat2-lat1) * Math.PI/180;
