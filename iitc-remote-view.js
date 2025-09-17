@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.1.4
+// @version        1.2.0
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -33,6 +33,8 @@ function wrapper(plugin_info) {
 		}
 		
 		thisPlugin.currentLocMarker = null;
+		thisPlugin.maxLayerE = null;
+		thisPlugin.maxLayerW = null;
 		
 		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
 		
@@ -47,20 +49,31 @@ function wrapper(plugin_info) {
 		  text: 'Double-click to set/change current location',
 	    })
 	    .on('dblclick', thisPlugin.setLocation);
-	  console.log('Setup div successfully')
-	  console.log(div)
+
 	  $('#resodetails').after(div);
 	};
 
 	thisPlugin.setLocation = function () {
+	  //Set location marker
 	  if (thisPlugin.currentLocMarker) {
 	    window.map.removeLayer(thisPlugin.currentLocMarker);
 	    thisPlugin.currentLocMarker = null;
 	    return;
 	  }
+
+	  if (thisPlugin.maxLayerE) {
+	    window.map.removeLayer(thisPlugin.maxLayerE);
+	    thisPlugin.maxLayerE = null;
+	  }
+	  if (thisPlugin.maxLayerW) {
+	    window.map.removeLayer(thisPlugin.maxLayerW);
+	    thisPlugin.maxLayerW = null;
+	  }
 	
 	  if (!thisPlugin.currentLoc) {
 	    thisPlugin.currentLoc = window.map.getCenter();
+		console.log('Current location set');
+		console.log(currentLoc)
 	  }
 	
 	 thisPlugin.currentLocMarker = L.marker(thisPlugin.currentLoc, {
@@ -79,7 +92,30 @@ function wrapper(plugin_info) {
 	  });
 	
 	  window.map.addLayer(thisPlugin.currentLocMarker);
-	};
+
+	  //Draw max distance circle
+	  var extraOptE = {color: '#ff0033'};
+	  var extraOptW = {color: '#3300ff'};
+	  
+	  if (currentLoc.lng < 0) --west hemisphere location{
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+	  	
+		  let currentLocE = currentLoc;
+		  currentLocE.lng = currentLoc.lng - 360
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+	  }
+	  else --eastern hemisphere location
+	  {
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  let currentLocW = currentLoc;
+		  currentLocW.lng = currentLoc.lng + 360
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLocW.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+	  }
+	
+	
+	    window.plugin.drawTools.drawnItems.addLayer(thisPlugin.maxLayerE);
+	    window.plugin.drawTools.drawnItems.addLayer(thisPlugin.maxLayerW);
+	  };
 
      thisPlugin.addRemoteLink = function (data, event) {
          setTimeout(function() {
