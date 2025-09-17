@@ -97,7 +97,7 @@ function wrapper(plugin_info) {
 	  var extraOptE = {color: '#ff0033'};
 	  var extraOptW = {color: '#3300ff'};
 	  
-	  if (currentLoc.lng < 0) --west hemisphere location{
+	  if (currentLoc.lng < 0) { //west hemisphere location
 		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  	
 		  let currentLocE = currentLoc;
