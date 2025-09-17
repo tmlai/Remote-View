@@ -79,11 +79,11 @@ function wrapper(plugin_info) {
 	    thisPlugin.maxLayerW = null;
 	  }
 	
-	  if (!thisPlugin.currentLoc) {
-	    thisPlugin.currentLoc = window.map.getCenter();
-		console.log('Current location set');
-		console.log(currentLoc)
-	  }
+	  
+      thisPlugin.currentLoc = window.map.getCenter();
+	  console.log('Current location set');
+	  console.log(currentLoc)
+	  
 	
 	 thisPlugin.currentLocMarker = L.marker(thisPlugin.currentLoc, {
 	    icon: L.divIcon.coloredSvg('#444'),
@@ -113,7 +113,7 @@ function wrapper(plugin_info) {
 	  var maxLinkDistance = 6881279.999
 	  //converting to LatLng object
 	  var currentLatLng = L.latLng(thisPlugin.currentLoc.lat, thisPlugin.currentLoc.lng)
-	  console.log('Drawing max circles from (', currentLatLng.lat, ',',currentLatLng.lng,'"')
+	  console.log('Drawing max circles from (', currentLatLng.lat, ',',currentLatLng.lng,')')
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
 		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptW));
