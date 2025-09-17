@@ -25,8 +25,59 @@ function wrapper(plugin_info) {
     plugin_info.pluginId = 'portal-remote-view';
 
     function setup() {
+		try {
+			thisPlugin.currentLoc = L.latLng(JSON.parse(localStorage['plugin-distance-to-portal']));
+		} catch {
+			thisPlugin.currentLoc = null;
+		}
+		
+		thisPlugin.currentLocMarker = null;
+		
+		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
+		
+		window.addHook('portalDetailsUpdated', thisPlugin.addDistance); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
         window.addHook('portalSelected', thisPlugin.addRemoteLink); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
     };
+	thisPlugin.addDistance = function () {		
+	  var div = $('<div>')
+	    .attr({
+	      id: 'portal-distance',
+	      title: 'Double-click to set/change current location',
+		  text: 'Location not set, dble click to set',
+	    })
+	    .on('dblclick', window.plugin.distanceToPortal.setLocation);
+	
+	  $('#resodetails').after(div);
+	};
+
+	thisPlugin.setLocation = function () {
+	  if (thisPlugin.currentLocMarker) {
+	    window.map.removeLayer(thisPlugin..currentLocMarker);
+	    thisPlugin.currentLocMarker = null;
+	    return;
+	  }
+	
+	  if (!thisPlugin.currentLoc) {
+	    thisPlugin.currentLoc = window.map.getCenter();
+	  }
+	
+	 thisPlugin.currentLocMarker = L.marker(thisPlugin.currentLoc, {
+	    icon: L.divIcon.coloredSvg('#444'),
+	    draggable: true,
+	    title: 'Drag to change current location',
+	  });
+	
+	  thisPlugin.currentLocMarker.on('drag', function () {
+	    thisPlugin.currentLoc = thisPlugin.currentLocMarker.getLatLng();
+	
+	    localStorage['plugin-distance-to-portal'] = JSON.stringify({
+	      lat: thisPlugin.currentLoc.lat,
+	      lng: thisPlugin.currentLoc.lng,
+	    });
+	  });
+	
+	  window.map.addLayer(thisPlugin.currentLocMarker);
+	};
 
      thisPlugin.addRemoteLink = function (data, event) {
          setTimeout(function() {
@@ -70,19 +121,27 @@ function wrapper(plugin_info) {
              linkDetails.append($('<aside>').append($('<div>').append(remoteViewHTML)));
              var targetLat = 53.600212
              var targetLong = -132.278533
+
+			 if (thisPlugin.currentLoc) {
+				 targetLat = thisPlugin.currentLoc.lat
+				 targetLong = thisPlugin.currentLoc.lng
+			 }
              var lastTouched = '<div><span>Last touched: ' + new Date(portal.options.timestamp) + '</span></div>'
              
 
-             let distance = haversine(targetLat, targetLong, lat, lng).toLocaleString(
-																		  undefined, // leave undefined to use the visitor's browser locale
-																		  { minimumFractionDigits: 2 }
-				 														);
+             let distance = haversine(targetLat, targetLong, lat, lng);
+			 let distanceString = distance.toLocaleString(undefined, // leave undefined to use the visitor's browser locale
+															  { minimumFractionDigits: 2 }
+															);
 			 let maxLinkDistance= 6881279999
 			 let diffMaxLinkDistance = maxLinkDistance - distance
+			 let diffMaxLinkDistanceString = diffMaxLinkDistance.toLocaleString(undefined, // leave undefined to use the visitor's browser locale
+															  { minimumFractionDigits: 2 }
+															);
 		     //distance = distance.toFixed(1);
 
-             var distanceToTarget = '<div><span>Distance to target: ' +distance + '</span></div>'
-			 var diffToMaxDistance = '<div><span>Diff to max link distance: ' +diffMaxLinkDistance + '</span></div>'
+             var distanceToTarget = '<div><span>Distance to target: ' +distanceString + 'mm</span></div>'
+			 var diffToMaxDistance = '<div><span>Diff to max link distance: ' +diffMaxLinkDistanceString + 'mm</span></div>'
              
              linkDetails.append(lastTouched);
              linkDetails.append(distanceToTarget);
