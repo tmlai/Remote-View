@@ -35,6 +35,7 @@ function wrapper(plugin_info) {
 		thisPlugin.currentLocMarker = null;
 		thisPlugin.maxLayerE = null;
 		thisPlugin.maxLayerW = null;
+		thisPlugin.currentLoc = null;
 		
 		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
 		
