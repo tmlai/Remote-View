@@ -74,8 +74,8 @@ function wrapper(plugin_info) {
              
 
              let distance = haversine(targetLat, targetLong, lat, lng);
-			 let maxLinkDistance= 6881.279999
-			 let diffMaxLinkDistance = 6881.279999 - distance
+			 let maxLinkDistance= 6881279999
+			 let diffMaxLinkDistance = maxLinkDistance - distance
 		     //distance = distance.toFixed(1);
 
              var distanceToTarget = '<div><span>Distance to target: ' +distance + '</span></div>'
