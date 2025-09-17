@@ -83,13 +83,13 @@ function wrapper(plugin_info) {
              
              linkDetails.append(lastTouched);
              linkDetails.append(distanceToTarget);
-			 linkDetails.append(diffToMaxDistance);
+			 //linkDetails.append(diffToMaxDistance);
          }, 0);
      }
 
    //Credit: https://github.com/tehstone/IngressDronePath/blob/master/dronePathTravelPlanner.user.js#L1108
    function haversine(lat1, lon1, lat2, lon2) {
-		const R = 6371008771.4; // milimetres
+		const R = 6367000000; // milimetres
 		const φ1 = lat1 * Math.PI/180; // φ, λ in radians
 		const φ2 = lat2 * Math.PI/180;
 		const Δφ = (lat2-lat1) * Math.PI/180;
