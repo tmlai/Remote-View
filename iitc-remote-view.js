@@ -120,8 +120,8 @@ function wrapper(plugin_info) {
 
              // #resodetails
              linkDetails.append($('<aside>').append($('<div>').append(remoteViewHTML)));
-             var targetLat = 53.600212
-             var targetLong = -132.278533
+             var targetLat = 48.413514
+             var targetLong = -123.393788
 
 			 if (thisPlugin.currentLoc) {
 				 targetLat = thisPlugin.currentLoc.lat
