@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.1.2
+// @version        1.1.3
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -44,6 +44,7 @@ function wrapper(plugin_info) {
 	    .attr({
 	      id: 'portal-distance',
 	      title: 'Double-click to set/change current location',
+		  text: 'Location not set',
 	    })
 	    .on('dblclick', thisPlugin.setLocation);
 	  console.log('Setup div successfully')
