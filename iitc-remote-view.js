@@ -39,11 +39,11 @@ function wrapper(plugin_info) {
 		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
 		
         window.addHook('portalSelected', thisPlugin.addRemoteLink); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
-		window.addHook('portalSelected', thisPlugin.addDistance);
+		window.addHook('portalDetailsUpdated', thisPlugin.addDistance);
     };
 	
-	thisPlugin.addDistance = function (data, event) {	
-	  var portal = window.portals[data.selectedPortalGuid]
+	thisPlugin.addDistance = function () {	
+	  //var portal = window.portals[data.selectedPortalGuid]
 
 	  $('#portal-distance').text('Dbl click to set current location');
 	    var div = $('<div>')
@@ -51,15 +51,16 @@ function wrapper(plugin_info) {
 	        id: 'portal-distance',
 	        title: 'Double-click to set/change current location',
 	    })
-	    .on('dblclick', function() {thisPlugin.setLocation(portal);});
+	    //.on('dblclick', function() {thisPlugin.setLocation(portal);});
+		.on('dblclick', function() {thisPlugin.setLocation();});
 	
 	  $('#resodetails').after(div);
 
 	  $('#portal-distance').text('Dbl click to set current location');
 	};
 
-	thisPlugin.setLocation = function (portal) {
-	  var portalName = portal.options.data.title
+	thisPlugin.setLocation = function () {
+	  //var portalName = portal.options.data.title
 
 	  //$('#portal-distance').text('Dbl click to change current location: ' + portalName);
 	  //Set location marker
