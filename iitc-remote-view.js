@@ -1,7 +1,8 @@
 // ==UserScript==
 // @author         tmlai
-// @name           IITC: Remote View URL
-// @version        1.1.0
+// @name           Remote View URL & Portal Distance
+// @version        1.1.1
+// @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
 // @id             remote-view
@@ -35,18 +36,18 @@ function wrapper(plugin_info) {
 		
 		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
 		
-		window.addHook('portalDetailsUpdated', thisPlugin.addDistance); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
         window.addHook('portalSelected', thisPlugin.addRemoteLink); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
+		window.addHook('portalDetailsUpdated', thisPlugin.addDistance);
     };
 	thisPlugin.addDistance = function () {		
 	  var div = $('<div>')
 	    .attr({
 	      id: 'portal-distance',
 	      title: 'Double-click to set/change current location',
-		  text: 'Location not set, dble click to set',
 	    })
 	    .on('dblclick', window.plugin.distanceToPortal.setLocation);
-	
+	  console.log('Setup div successfully')
+	  console.log(div)
 	  $('#resodetails').after(div);
 	};
 
