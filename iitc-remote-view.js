@@ -115,18 +115,18 @@ function wrapper(plugin_info) {
 	  console.log('Drawing max circles from (', currentLatLng.lat, ',',currentLatLng.lng,'"')
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, maxLinkDistance, OptW));
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, maxLinkDistance, OptW);
 	  	
 		  let currentLatLngE = currentLatLng;
 		  currentLatLngE.lng = currentLatLng.lng + 360
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, maxLinkDistance, OptW));
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, maxLinkDistance, OptW);
 	  }
 	  else //eastern hemisphere location
 	  {
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLng, maxLinkDistance, OptE));
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLng, maxLinkDistance, OptE);
 		  let currentLatLngW = currentLatLng;
 		  currentLatLngW.lng = currentLatLng.lng - 360
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLngW, maxLinkDistance, OptW));
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLngW, maxLinkDistance, OptW);
 	  }
 	
 	
