@@ -98,20 +98,22 @@ function wrapper(plugin_info) {
 	  //Draw max distance circle
 	  var extraOptE = {color: '#ff0033'};
 	  var extraOptW = {color: '#3300ff'};
+	  //converting to LatLng object
+	  var currentLatLng = L.latLng(thisPlugin.currentLoc.lat, thisPlugin.currentLoc.lng)
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
-		  thisPlugin.maxLayerW = L.geodesicPolygon(thisPlugin.currentLoc.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  	
-		  let currentLocE = thisPlugin.currentLoc;
-		  currentLocE.lng = thisPlugin.currentLoc.lng - 360
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  let currentLatLngE = currentLatLng;
+		  currentLatLngE.lng = currentLatLng.lng - 360
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 	  }
 	  else //eastern hemisphere location
 	  {
-		  thisPlugin.maxLayerE = L.geodesicPolygon(thisPlugin.currentLoc.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
-		  let currentLocW = thisPlugin.currentLoc;
-		  currentLocW.lng = thisPlugin.currentLoc.lng + 360
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLocW.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  let currentLatLngW = currentLatLng;
+		  currentLatLngW.lng = currentLatLng.lng + 360
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLngW, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  }
 	
 	
