@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.11
+// @version        1.2.12
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -39,22 +39,29 @@ function wrapper(plugin_info) {
 		$('<style>').prop('type', 'text/css').html('@include_string:distance-to-portal.css@').appendTo('head');
 		
         window.addHook('portalSelected', thisPlugin.addRemoteLink); // changed from portalDetailsUpdated to portalSelected to speed up the path drawing
-		window.addHook('portalDetailsUpdated', thisPlugin.addDistance);
+		window.addHook('portalSelected', thisPlugin.addDistance);
     };
-	thisPlugin.addDistance = function () {		
-	  var div = $('<div>')
-	    .attr({
-	      id: 'portal-distance',
-	      title: 'Double-click to set/change current location',
+	
+	thisPlugin.addDistance = function (data, event) {	
+	  var portal = window.portals[data.selectedPortalGuid]
+
+	  $('#portal-distance').text('Dbl click to set current location');
+	    var div = $('<div>')
+	      .attr({
+	        id: 'portal-distance',
+	        title: 'Double-click to set/change current location',
 	    })
-	    .on('dblclick', thisPlugin.setLocation);
+	    .on('dblclick', function() {thisPlugin.setLocation(portal);});
 	
 	  $('#resodetails').after(div);
 
 	  $('#portal-distance').text('Dbl click to set current location');
 	};
 
-	thisPlugin.setLocation = function () {
+	thisPlugin.setLocation = function (portal) {
+	  var portalName = portal.options.data.title
+
+	  $('#portal-distance').text('Dbl click to change current location: ' + portalName);
 	  //Set location marker
 	  if (thisPlugin.currentLocMarker) {
 	    window.map.removeLayer(thisPlugin.currentLocMarker);
@@ -173,8 +180,10 @@ function wrapper(plugin_info) {
              var targetLong = -123.393788
 
 			 if (thisPlugin.currentLoc) {
+				 
 				 targetLat = thisPlugin.currentLoc.lat
 				 targetLong = thisPlugin.currentLoc.lng
+				 console.log('use user set location: (', targetLat, ',' ,targetLong, ')')
 			 }
              var lastTouched = '<div><span>Last touched: ' + new Date(portal.options.timestamp) + '</span></div>'
              
