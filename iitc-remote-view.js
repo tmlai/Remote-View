@@ -6,8 +6,8 @@
 // @run-at         document-end
 // @id             remote-view
 // @namespace      https://github.com/tmlai/remote-view
-// @updateURL      https://github.com/tmlai/remote-view/iitc-remote-view.js
-// @downloadURL    https://github.com/tmlai/remote-view/portal-remote-view.js
+// @updateURL      https://raw.githubusercontent.com/tmlai/Remote-View/main/iitc-remote-view.js
+// @downloadURL    https://raw.githubusercontent.com/tmlai/Remote-View/main/iitc-remote-view.js
 // @match          https://intel.ingress.com/*
 // @grant          none
 // ==/UserScript==
