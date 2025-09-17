@@ -67,7 +67,6 @@ function wrapper(plugin_info) {
 	  if (thisPlugin.currentLocMarker) {
 	    window.map.removeLayer(thisPlugin.currentLocMarker);
 	    thisPlugin.currentLocMarker = null;
-	    return;
 	  }
 
 	  if (thisPlugin.maxLayerE) {
