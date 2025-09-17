@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           IITC: Remote View URL
-// @version        1.0.0
+// @version        1.1.0
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
 // @id             remote-view
