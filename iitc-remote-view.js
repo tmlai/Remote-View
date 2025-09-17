@@ -83,7 +83,7 @@ function wrapper(plugin_info) {
 	  
       thisPlugin.currentLoc = window.map.getCenter();
 	  console.log('Current location set');
-	  console.log(currentLoc)
+	  console.log(thisPlugin.currentLoc)
 	  
 	
 	 thisPlugin.currentLocMarker = L.marker(thisPlugin.currentLoc, {
