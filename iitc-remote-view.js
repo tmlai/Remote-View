@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.4
+// @version        1.2.5
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -48,8 +48,10 @@ function wrapper(plugin_info) {
 	      title: 'Double-click to set/change current location',
 	    })
 	    .on('dblclick', thisPlugin.setLocation);
-	  div.innerHTML = 'Double-click to set/change current location';
+	
 	  $('#resodetails').after(div);
+
+	  $('#portal-distance').text('Dbl click to set current location');
 	};
 
 	thisPlugin.setLocation = function () {
@@ -97,18 +99,18 @@ function wrapper(plugin_info) {
 	  var extraOptE = {color: '#ff0033'};
 	  var extraOptW = {color: '#3300ff'};
 	  
-	  if (currentLoc.lng < 0) { //west hemisphere location
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
+		  thisPlugin.maxLayerW = L.geodesicPolygon(thisPlugin.currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  	
-		  let currentLocE = currentLoc;
-		  currentLocE.lng = currentLoc.lng - 360
+		  let currentLocE = thisPlugin.currentLoc;
+		  currentLocE.lng = thisPlugin.currentLoc.lng - 360
 		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 	  }
 	  else //eastern hemisphere location
 	  {
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
-		  let currentLocW = currentLoc;
-		  currentLocW.lng = currentLoc.lng + 360
+		  thisPlugin.maxLayerE = L.geodesicPolygon(thisPlugin.currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  let currentLocW = thisPlugin.currentLoc;
+		  currentLocW.lng = thisPlugin.currentLoc.lng + 360
 		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLocW.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  }
 	
