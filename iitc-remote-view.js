@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.7
+// @version        1.2.9
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -94,31 +94,45 @@ function wrapper(plugin_info) {
 	  });
 	
 	  window.map.addLayer(thisPlugin.currentLocMarker);
+	  console.log('added location marker')
 
 	  //Draw max distance circle
-	  var extraOptE = {color: '#ff0033'};
-	  var extraOptW = {color: '#3300ff'};
+	  var extraOptE = {
+			    color: '#3300ff',
+			    opacity: 1,
+			    weight: 2,
+			    interactive: false,
+			  }
+		  };
+	  var extraOptW =  {
+			    color: '#ff0033',
+			    opacity: 1,
+			    weight: 2,
+			    interactive: false,
+			  };
 	  //converting to LatLng object
 	  var currentLatLng = L.latLng(thisPlugin.currentLoc.lat, thisPlugin.currentLoc.lng)
+	  console.log('Drawing max circles from (', currentLatLng.Lat, ',',currentLatLng.lng,'"')
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
 		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  	
 		  let currentLatLngE = currentLatLng;
-		  currentLatLngE.lng = currentLatLng.lng - 360
+		  currentLatLngE.lng = currentLatLng.lng + 360
 		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 	  }
 	  else //eastern hemisphere location
 	  {
 		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 		  let currentLatLngW = currentLatLng;
-		  currentLatLngW.lng = currentLatLng.lng + 360
+		  currentLatLngW.lng = currentLatLng.lng - 360
 		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLngW, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  }
 	
 	
 	    window.plugin.drawTools.drawnItems.addLayer(thisPlugin.maxLayerE);
 	    window.plugin.drawTools.drawnItems.addLayer(thisPlugin.maxLayerW);
+		console.log('added both E&W circle')
 	  };
 
      thisPlugin.addRemoteLink = function (data, event) {
