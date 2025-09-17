@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.10
+// @version        1.2.11
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
