@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.1
+// @version        1.2.3
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -105,7 +105,7 @@ function wrapper(plugin_info) {
 		  currentLocE.lng = currentLoc.lng - 360
 		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 	  }
-	  else --eastern hemisphere location
+	  else //eastern hemisphere location
 	  {
 		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 		  let currentLocW = currentLoc;
