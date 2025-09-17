@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.12
+// @version        1.2.13
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -117,18 +117,18 @@ function wrapper(plugin_info) {
 	  console.log('Drawing max circles from (', currentLatLng.lat, ',',currentLatLng.lng,')')
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLng, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptW));
+		  thisPlugin.maxLayerW = L.geodesicCircle(currentLatLng, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptW));
 	  	
 		  let currentLatLngE = currentLatLng;
 		  currentLatLngE.lng = currentLatLng.lng + 360
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptE));
+		  thisPlugin.maxLayerE = L.geodesicCircle(currentLatLngE, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptE));
 	  }
 	  else //eastern hemisphere location
 	  {
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLng, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptE));
+		  thisPlugin.maxLayerE = L.geodesicCircle(currentLatLng, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptE));
 		  let currentLatLngW = currentLatLng;
 		  currentLatLngW.lng = currentLatLng.lng - 360
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLatLngW, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptW));
+		  thisPlugin.maxLayerW = L.geodesicCircle(currentLatLngW, maxLinkDistance, L.extend({}, window.plugin.drawTools.polygonOptions, OptW));
 	  }
 	
 	
