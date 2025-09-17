@@ -61,7 +61,7 @@ function wrapper(plugin_info) {
 	thisPlugin.setLocation = function (portal) {
 	  var portalName = portal.options.data.title
 
-	  $('#portal-distance').text('Dbl click to change current location: ' + portalName);
+	  //$('#portal-distance').text('Dbl click to change current location: ' + portalName);
 	  //Set location marker
 	  if (thisPlugin.currentLocMarker) {
 	    window.map.removeLayer(thisPlugin.currentLocMarker);
