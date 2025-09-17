@@ -73,7 +73,10 @@ function wrapper(plugin_info) {
              var lastTouched = '<div><span>Last touched: ' + new Date(portal.options.timestamp) + '</span></div>'
              
 
-             let distance = haversine(targetLat, targetLong, lat, lng);
+             let distance = haversine(targetLat, targetLong, lat, lng).toLocaleString(
+																		  undefined, // leave undefined to use the visitor's browser locale
+																		  { minimumFractionDigits: 2 }
+				 														);
 			 let maxLinkDistance= 6881279999
 			 let diffMaxLinkDistance = maxLinkDistance - distance
 		     //distance = distance.toFixed(1);
@@ -83,7 +86,7 @@ function wrapper(plugin_info) {
              
              linkDetails.append(lastTouched);
              linkDetails.append(distanceToTarget);
-			 //linkDetails.append(diffToMaxDistance);
+			 linkDetails.append(diffToMaxDistance);
          }, 0);
      }
 
