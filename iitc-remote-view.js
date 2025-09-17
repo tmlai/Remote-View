@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.5
+// @version        1.2.6
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -100,18 +100,18 @@ function wrapper(plugin_info) {
 	  var extraOptW = {color: '#3300ff'};
 	  
 	  if (thisPlugin.currentLoc.lng < 0) { //west hemisphere location
-		  thisPlugin.maxLayerW = L.geodesicPolygon(thisPlugin.currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+		  thisPlugin.maxLayerW = L.geodesicPolygon(thisPlugin.currentLoc.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  	
 		  let currentLocE = thisPlugin.currentLoc;
 		  currentLocE.lng = thisPlugin.currentLoc.lng - 360
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLocE.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 	  }
 	  else //eastern hemisphere location
 	  {
-		  thisPlugin.maxLayerE = L.geodesicPolygon(thisPlugin.currentLoc.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
+		  thisPlugin.maxLayerE = L.geodesicPolygon(thisPlugin.currentLoc.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptE));
 		  let currentLocW = thisPlugin.currentLoc;
 		  currentLocW.lng = thisPlugin.currentLoc.lng + 360
-		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLocW.latLngs, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
+		  thisPlugin.maxLayerW = L.geodesicPolygon(currentLocW.latLng, L.extend({}, window.plugin.drawTools.polygonOptions, extraOptW));
 	  }
 	
 	
