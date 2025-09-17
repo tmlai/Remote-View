@@ -83,6 +83,7 @@ function wrapper(plugin_info) {
              
              linkDetails.append(lastTouched);
              linkDetails.append(distanceToTarget);
+			 linkDetails.append(diffToMaxDistance);
          }, 0);
      }
 
