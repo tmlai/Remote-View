@@ -119,7 +119,7 @@ function wrapper(plugin_info) {
 	  	
 		  let currentLatLngE = currentLatLng;
 		  currentLatLngE.lng = currentLatLng.lng + 360
-		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, maxLinkDistance, OptW);
+		  thisPlugin.maxLayerE = L.geodesicPolygon(currentLatLngE, maxLinkDistance, OptE);
 	  }
 	  else //eastern hemisphere location
 	  {
