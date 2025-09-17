@@ -1,7 +1,7 @@
 // ==UserScript==
 // @author         tmlai
 // @name           Remote View URL & Portal Distance
-// @version        1.2.0
+// @version        1.2.1
 // @category       Portal Info
 // @description    Generate in-game remote view for selected portal
 // @run-at         document-end
@@ -65,6 +65,7 @@ function wrapper(plugin_info) {
 	    window.map.removeLayer(thisPlugin.maxLayerE);
 	    thisPlugin.maxLayerE = null;
 	  }
+		
 	  if (thisPlugin.maxLayerW) {
 	    window.map.removeLayer(thisPlugin.maxLayerW);
 	    thisPlugin.maxLayerW = null;
