@@ -184,7 +184,7 @@ function wrapper(plugin_info) {
 				 
 				 targetLat = thisPlugin.currentLoc.lat
 				 targetLong = thisPlugin.currentLoc.lng
-				 console.log('use user set location: (', targetLat, ',' ,targetLong, ')')
+				 console.log('calculating distance from: (', targetLat, ',' ,targetLong, ') to (',lat, ',', lng, ')')
 			 }
              var lastTouched = '<div><span>Last touched: ' + new Date(portal.options.timestamp) + '</span></div>'
              
